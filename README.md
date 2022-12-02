@@ -1,5 +1,7 @@
 # [SynthSys ]
 
+![SynthSys.png]
+
 ## Objectif 
 SynthSys est un Bot pour Discord multitaches
 
