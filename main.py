@@ -15,4 +15,14 @@ async def on_message(message):
     if message.content.startswith('!bonjour'):
         await message.channel.send('Bonjour {client.user}!')
 
+@client.command()
+async def ban(ctx, user:discord.User, reason):
+    if ctx.author.guild_permissions.kick_members:
+        await ctx.guild.kick(user)
+        await ctx.respond(f'Kick de {user} - Raison: (reason)')
+
+    else:
+        await ctx.respond("Vous n'avez pas les droits pour Kick un membre!")
+
+
 client.run(TOKEN)
