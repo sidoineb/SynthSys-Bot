@@ -21,35 +21,38 @@ async def on_message(message):
 # Kick
 
 @client.command()
-async def kick(ctx, user:discord.User, reason):
+async def kick(ctx, user: discord.User, reason: str):
+
     if ctx.author.guild_permissions.kick_members:
-        await ctx.guild.kick(user)
-        await ctx.respond(f'Kick de {user} - Raison: (reason)')
+        await ctx.guild.await ctx.guild.kick(user, reason=reason)
+        await ctx.await ctx.send(f"Utilisateur kické: {user.name} ({user.id}) - Raison: {reason}")
 
     else:
-        await ctx.respond("Vous n'avez pas les droits pour Kick un membre!")
+        await ctx.send("Vous n'avez pas la permission de bannir un utilisateur.")
 
 # Ban
 
 @client.command()
-async def ban(ctx, user:discord.User, reason):
+async def ban(ctx, user: discord.User, reason: str):
+
     if ctx.author.guild_permissions.ban_members:
-        await ctx.guild.ban(user)
-        await ctx.respond(f'ban de {user} - Raison: (reason)')
+        await ctx.guild.await ctx.guild.ban(user, reason=reason)
+        await ctx.await ctx.send(f"Utilisateur banni: {user.name} ({user.id}) - Raison: {reason}")
 
     else:
-        await ctx.respond("Vous n'avez pas les droits pour Ban un membre!")
+        await ctx.send("Vous n'avez pas la permission de bannir un utilisateur.")
 
 # Unban
 
 @client.command()
-async def unban(ctx, user:discord.User, reason):
+async def unban(ctx, user: discord.User, reason: str):
+
     if ctx.author.guild_permissions.ban_members:
-        await ctx.guild.unban(user)
-        await ctx.respond(f'Unban de {user} - Raison: (reason)')
+        await ctx.guild.await ctx.guild.unban(user, reason=reason)
+        await ctx.await ctx.send(f"Utilisateur unbanni: {user.name} ({user.id}) - Raison: {reason}")
 
     else:
-        await ctx.respond("Vous n'avez pas les droits pour Unban un membre!")
+        await ctx.send("Vous n'avez pas la permission de unbannir un utilisateur.")
 
 
 client.run(TOKEN)
