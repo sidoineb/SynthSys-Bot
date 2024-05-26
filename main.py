@@ -61,5 +61,60 @@ async def unban(ctx, user: discord.User, reason: str):
             await ctx.send("Veuillez entrer une raison pour le unbannir.")
         else:
         await ctx.send("Vous n'avez pas la permission de unbannir un utilisateur.")
+# Mute
+
+@client.command()
+async def mute(ctx : commands.Context, member : discord.Member, *), reason : str = ""):
+    is_in_private_messages = ctx.guild is None and isinstance(ctx.author, discord.User)
+    if isi_in_private_message:
+        return await ctx.send("Vous ne pouvez pas utiliser cette commande en message privé")
+    
+    has_permission = ctx.author.guild_permissions.manage_channels
+    if not has_permission:
+        return await ctx.send("Vous n'avez pas les droits pour utiliser cette commande")
+    
+    is_mutable = ctx.author.top_role > member.top_role
+    if not is_mutable:
+        return await ctx.send("Vous ne pouvez pas mute ce membre")
+        
+    is_in_voice_channel = member.voice is not None and member.voice.cahnnel is not None
+    if not is_in_voice_channel:
+        return await ctx.send("Le membre n'est pas dans un salon vocal.")
+    
+    if reason == "":
+        reason = "Aucune raison donnée"
+    
+    await member.edit(mute=True, reason=reason)
+    
+    return await ctx.send("{member.name} a été mute.")
+
+# Unmute
+
+@client.command()
+async def unmute(ctx : commands.Context, member : discord.Member, *), reason : str = ""):
+    is_in_private_messages = ctx.guild is None and isinstance(ctx.author, discord.User)
+    if isi_in_private_message:
+        return await ctx.send("Vous ne pouvez pas utiliser cette commande en message privé")
+    
+    has_permission = ctx.author.guild_permissions.manage_channels
+    if not has_permission:
+        return await ctx.send("Vous n'avez pas les droits pour utiliser cette commande")
+    
+    is_mutable = ctx.author.top_role > member.top_role
+    if not is_mutable:
+        return await ctx.send("Vous ne pouvez pas unmute ce membre")
+    
+    is_in_voice_channel = member.voice is not None and member.voice.cahnnel is not None
+    if not is_in_voice_channel:
+        return await ctx.send("Le membre n'est pas dans un salon vocal.")
+    
+    if reason == "":
+        reason = "Aucune raison donnée"
+    
+    await member.edit(mute=false, reason=reason)
+    
+    return await ctx.send("{member.name} a été unmute.")
+
+    
 
 client.run(TOKEN)
