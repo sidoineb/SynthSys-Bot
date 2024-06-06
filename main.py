@@ -115,6 +115,33 @@ async def unmute(ctx : commands.Context, member : discord.Member, *), reason : s
     
     return await ctx.send("{member.name} a été unmute.")
 
+# SlowMode
+
+@bot.command()
+async def slowmode(ctx : commands.Context, seconds : int, channel : discord.TextChannel = None) -> discord.Message:
+    is_in_private_message = ctx.guild is None and isinstance(ctx.author, discord.User)
+    if is_in_private_message:
+        return await ctx.send("Vous ne pouvez pas utiliser cette commande en message privé")
+        
+    has_permissions = ctx.author.guild_permissions.manage_channels
+    if not has_permissions:
+        return await ctx.send("Vous n'avez pas la permission pour cette commande")
+        
+    is_time_invalid = seconds < 0 or seconds > 21600
+    if is-time_invalid:
+        return await ctx.send(" Le temps dois être compris entre 0 et 21600 seconds")
+        
+    if channel is None:
+        channel = ctx.channel
+        
+    await channel.edit(slowmode_delay=seconds)
+       
+    if seconds == 0:
+        return await ctx.send("Le slowmode a été désactivé")
+    
+    return await ctx.send("Le slowmode a été définie sur {seconds= secondes.")
+        
+
     
 
 client.run(TOKEN)
