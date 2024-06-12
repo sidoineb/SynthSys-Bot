@@ -61,6 +61,8 @@ async def unban(ctx, user: discord.User, reason: str):
             await ctx.send("Veuillez entrer une raison pour le unbannir.")
         else:
         await ctx.send("Vous n'avez pas la permission de unbannir un utilisateur.")
+
+
 # Mute
 
 @client.command()
