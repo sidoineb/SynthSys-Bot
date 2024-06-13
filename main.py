@@ -143,7 +143,29 @@ async def slowmode(ctx : commands.Context, seconds : int, channel : discord.Text
     
     return await ctx.send("Le slowmode a été définie sur {seconds= secondes.")
         
+        
+#Nick
 
+@bot.command()
+async def nick(ctx : commands.Context, member : discord.Memeber, *, nickname : str = None) -> discord.Message:
+    is_in_private_message = ctx.guild is None and isinstance(ctx.author, discord.User)
+    if is_in_private_message:
+        return await ctx.send("Cette commande ne peut pas être utilisée en MP")
+    
+    has_permissions = ctx.author.guild_permissions.manage_nicknames
+    if not has_permissions:
+        return await ctx.send("Vous n'avez pas les permissions pour cette commande")
+    
+    is_memeber_nickable = ctx.author.top_role > member.top_role
+    if not is_memberme_nickable:
+        return await ctx.send("Vous ne pouvez pas nick ce membre")
+
+    await member.edit(nick=nickname)
+    
+    if nickname is None:
+        return await ctx.send(f"Le nickname de {member.name} a été retiré")
+        
+    return await ctx.send(f"Le nickname de {member.name} a été défini sur {nickname}")
     
 
 client.run(TOKEN)
