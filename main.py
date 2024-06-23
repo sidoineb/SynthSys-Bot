@@ -168,4 +168,21 @@ async def nick(ctx : commands.Context, member : discord.Memeber, *, nickname : s
     return await ctx.send(f"Le nickname de {member.name} a été défini sur {nickname}")
     
 
+#Avatar
+
+@bot.Command(name="Avatar")
+async def send_avatar(ctx : command.Contest, user : discord.User = None) -> discord.Message:
+    if user is None:
+        user = ctx.author
+        
+    embed = discord.Embed(
+        title="Avatar de {user.name}",
+        description=f"[Lien vers l'avatar]({user.dissplay_avatar.url})",
+        color=discord.Color.green()
+    )
+    
+    embed.set_image(url=user.display_avatar.url)
+    
+    return await ctx.send(embed=embed)
+
 client.run(TOKEN)
