@@ -120,7 +120,7 @@ async def unmute(ctx : commands.Context, member : discord.Member, *), reason : s
 # SlowMode
 
 @bot.command()
-async def slowmode(ctx : commands.Context, seconds : int, channel : discord.TextChannel = None) -> discord.Message:
+async def slowmode(ctx : commands.Context, seconds : int, channel : discord.TextChannel = None) → discord.Message:
     is_in_private_message = ctx.guild is None and isinstance(ctx.author, discord.User)
     if is_in_private_message:
         return await ctx.send("Vous ne pouvez pas utiliser cette commande en message privé")
@@ -147,7 +147,7 @@ async def slowmode(ctx : commands.Context, seconds : int, channel : discord.Text
 #Nick
 
 @bot.command()
-async def nick(ctx : commands.Context, member : discord.Memeber, *, nickname : str = None) -> discord.Message:
+async def nick(ctx : commands.Context, member : discord.Memeber, *, nickname : str = None) → discord.Message:
     is_in_private_message = ctx.guild is None and isinstance(ctx.author, discord.User)
     if is_in_private_message:
         return await ctx.send("Cette commande ne peut pas être utilisée en MP")
@@ -171,7 +171,7 @@ async def nick(ctx : commands.Context, member : discord.Memeber, *, nickname : s
 #Avatar
 
 @bot.Command(name="Avatar")
-async def send_avatar(ctx : command.Contest, user : discord.User = None) -> discord.Message:
+async def send_avatar(ctx : command.Contest, user : discord.User = None) → discord.Message:
     if user is None:
         user = ctx.author
         
