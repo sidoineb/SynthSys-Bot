@@ -18,7 +18,7 @@ SynthSys est sous license libre GNU GPL (https://www.gnu.org).
 * Copiez le lien "Generated URL", et copiez-le dans votre navigateur
 * Selectionnez votre server, puis autoriser les permissions
 
-* Dans votre terminal installez Discord.py (pip install siscord.py)
+* Dans votre terminal installez Discord.py (pip install discord.py)
 * Récupérez votre Token et renseignez-le dans Token.env
 * Lancez le bot: python main.py
 
