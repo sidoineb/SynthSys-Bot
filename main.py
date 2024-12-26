@@ -20,6 +20,15 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 async def on_ready():
     print(f'{bot.user} est connecté !')
 
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send("Vous n'avez pas les permissions nécessaires pour exécuter cette commande.")
+    elif isinstance(error, commands.CommandNotFound):
+        await ctx.send("Commande non trouvée.")
+    else:
+        await ctx.send("Une erreur est survenue lors de l'exécution de la commande.")
+
 # Chargement des cogs
 extensions = ['cogs.admin', 'cogs.misc']
 

@@ -52,5 +52,28 @@ class Admin(commands.Cog):
         await channel.edit(slowmode_delay=seconds)
         await ctx.send(f"Le slowmode a été défini à {seconds} secondes.")
 
+    @commands.command()
+    @commands.has_permissions(manage_roles=True)
+    async def mute(self, ctx, member: discord.Member, *, reason=None):
+        mute_role = discord.utils.get(ctx.guild.roles, name="Muted")
+        if not mute_role:
+            mute_role = await ctx.guild.create_role(name="Muted")
+
+            for channel in ctx.guild.channels:
+                await channel.set_permissions(mute_role, speak=False, send_messages=False)
+
+        await member.add_roles(mute_role, reason=reason)
+        await ctx.send(f'{member.name} a été mute pour la raison suivante : {reason}')
+
+    @commands.command()
+    @commands.has_permissions(manage_roles=True)
+    async def unmute(self, ctx, member: discord.Member):
+        mute_role = discord.utils.get(ctx.guild.roles, name="Muted")
+        if mute_role in member.roles:
+            await member.remove_roles(mute_role)
+            await ctx.send(f'{member.name} a été unmute.')
+        else:
+            await ctx.send(f'{member.name} n\'est pas mute.')
+
 def setup(bot):
     bot.add_cog(Admin(bot))
